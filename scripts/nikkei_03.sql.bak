@@ -1,0 +1,175 @@
+/*
+** RECALCULO DOS REGISTROS 
+*/
+
+SET TERM ^ ;
+
+CREATE PROCEDURE RECALCULO (
+    DATAINI DATE,
+    DATAFIM DATE)
+AS
+  DECLARE VARIABLE CODIGO       INTEGER;
+  DECLARE VARIABLE CODCONVENIO  INTEGER;
+  DECLARE VARIABLE CODEXAME     INTEGER;
+  DECLARE VARIABLE CODTABAMB    INTEGER;
+  DECLARE VARIABLE VALOR_CH     NUMERIC(9, 4);
+  DECLARE VARIABLE VALOR_FILME  NUMERIC(9, 4);
+  DECLARE VARIABLE QTDE_CH      NUMERIC(9, 4);
+  DECLARE VARIABLE QTDE_FILME   NUMERIC(9, 4);
+  DECLARE VARIABLE MATERIAL     NUMERIC(9, 4);
+BEGIN
+
+  FOR
+  SELECT
+    CODIGO,
+    CODCONVENIO,
+    CODEXAME
+  FROM
+    REGDIARIO
+  WHERE
+    CAST(DATA AS DATE) BETWEEN :DATAINI AND :DATAFIM
+  INTO
+    :CODIGO,
+    :CODCONVENIO,
+    :CODEXAME
+  DO
+  BEGIN
+
+    /* DADOS VINDOS DO CONVENIO */
+    SELECT
+      CODTABAMB,
+      VALOR_CH,
+      VALOR_FILME
+    FROM
+      CONVENIOS
+    WHERE
+      CODIGO = :CODCONVENIO
+    INTO
+      :CODTABAMB,
+      :VALOR_CH,
+      :VALOR_FILME;
+
+    /* DADOS VINDOS DO EXAME */
+    SELECT
+      QTDE_CH,
+      QTDE_FILME,
+      MATERIAL
+    FROM
+      ITTABAMB
+    WHERE
+      CODTABAMB = :CODTABAMB AND
+      CODEXAME  = :CODEXAME
+    INTO
+      :QTDE_CH,
+      :QTDE_FILME,
+      :MATERIAL;
+
+    /* ATUALIZO OS DADOS DO REGISTRO EM QUESTÃO */
+    UPDATE
+      REGDIARIO
+    SET
+      VALOR_CH    = :VALOR_CH,
+      VALOR_FILME = :VALOR_FILME,
+      QTDE_CH     = :QTDE_CH,
+      QTDE_FILME  = :QTDE_FILME,
+      MATERIAL    = :MATERIAL
+    WHERE
+      CODIGO = :CODIGO;
+
+  END
+
+END
+
+^
+
+SET TERM ; ^
+
+GRANT EXECUTE ON PROCEDURE RECALCULO TO PUBLIC;
+
+SET TERM ^ ;
+
+ALTER PROCEDURE RECALCULO (
+    DATAINI DATE,
+    DATAFIM DATE)
+AS
+DECLARE VARIABLE CODIGO INTEGER;
+DECLARE VARIABLE CODCONVENIO INTEGER;
+DECLARE VARIABLE CODEXAME INTEGER;
+DECLARE VARIABLE CODTABAMB INTEGER;
+DECLARE VARIABLE VALOR_CH NUMERIC(9,4);
+DECLARE VARIABLE VALOR_FILME NUMERIC(9,4);
+DECLARE VARIABLE QTDE_CH NUMERIC(9,4);
+DECLARE VARIABLE QTDE_FILME NUMERIC(9,4);
+DECLARE VARIABLE MATERIAL NUMERIC(9,4);
+begin
+
+  for
+  select
+    codigo,
+    codconvenio,
+    codexame
+  from
+    regdiario
+  where
+    tipo = 'R' and
+    cast(data as date) between :dataini and :datafim
+  into
+    :codigo,
+    :codconvenio,
+    :codexame
+  do
+  begin
+
+    /* dados vindos do convenio */
+    select
+      codtabamb,
+      valor_ch,
+      valor_filme
+    from
+      convenios
+    where
+      codigo = :codconvenio
+    into
+      :codtabamb,
+      :valor_ch,
+      :valor_filme;
+
+    /* dados vindos do exame */
+    select
+      qtde_ch,
+      qtde_filme,
+      material
+    from
+      ittabamb
+    where
+      codtabamb = :codtabamb and
+      codexame  = :codexame
+    into
+      :qtde_ch,
+      :qtde_filme,
+      :material;
+
+    /* atualizo os dados do registro em questão */
+    update
+      regdiario
+    set
+      valor_ch    = :valor_ch,
+      valor_filme = :valor_filme,
+      qtde_ch     = :qtde_ch,
+      qtde_filme  = :qtde_filme,
+      material    = :material
+    where
+      codigo = :codigo;
+
+  end
+
+end
+
+^
+
+SET TERM ; ^
+
+create index REGDIARIO_IDX1 on REGDIARIO (DATA);
+
+create index REGDIARIO_IDX2 on REGDIARIO (TIPO);
+

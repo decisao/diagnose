@@ -1,0 +1,33 @@
+object formMalaMedicos: TformMalaMedicos
+  Left = 366
+  Top = 231
+  Width = 409
+  Height = 237
+  Caption = 'Mala-direta para Médicos'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 162
+    Width = 401
+    Height = 41
+    Align = alBottom
+    Color = clBtnShadow
+    TabOrder = 0
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 0
+    Width = 401
+    Height = 162
+    Align = alClient
+    TabOrder = 1
+  end
+end

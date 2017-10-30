@@ -1,0 +1,26 @@
+unit malamedicos;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ExtCtrls;
+
+type
+  TformMalaMedicos = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formMalaMedicos: TformMalaMedicos;
+
+implementation
+
+{$R *.DFM}
+
+end.

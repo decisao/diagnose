@@ -1,0 +1,59 @@
+program diagnos;
+
+uses
+  Forms,
+  principal in 'principal.pas' {formPrincipal},
+  data_principal in 'data_principal.pas' {dmoPrincipal: TDataModule},
+  reconcile in 'reconcile.pas' {ReconcileErrorForm},
+  relaclocalidades in '..\clientes\relaclocalidades.pas' {dmoRelacLocalidades: TDataModule},
+  bairros in '..\clientes\bairros.pas' {formBairros},
+  cidades in '..\clientes\cidades.pas' {formCidades},
+  cli_files in '..\clientes\cli_files.pas' {formCli_files},
+  clientes in '..\clientes\clientes.pas' {formClientes},
+  estados in '..\clientes\estados.pas' {formEstados},
+  localidades in '..\clientes\localidades.pas' {formLocalidades},
+  newlocal in '..\clientes\newlocal.pas' {formNovaLocalidade},
+  relaccidades in '..\clientes\relaccidades.pas' {dmoRelacCidades: TDataModule},
+  relacclientes in '..\clientes\relacclientes.pas' {dmoRelacClientes: TDataModule},
+  gridreport in 'gridreport.pas' {formGridReport},
+  preview in 'preview.pas' {formPreview},
+  sequencia in '..\sequencia\sequencia.pas' {formSequencia},
+  login in 'login.pas' {formLogin},
+  medicos in '..\medicos\medicos.pas' {formMedicos},
+  convenios in '..\convenios\convenios.pas' {formConvenios},
+  exames in '..\exames\exames.pas' {formExames},
+  tabamb in '..\tabela_amb\tabamb.pas' {formTabelaAMB},
+  ittabamb in '..\tabela_amb\ittabamb.pas' {formExamesAMB},
+  regdiario in '..\regdiario\regdiario.pas' {formRegDiario},
+  dataregdiario in '..\regdiario\dataregdiario.pas' {dmoRegDiario: TDataModule},
+  agenda in '..\agenda\agenda.pas' {formAgenda},
+  setores in '..\setores\setores.pas' {formSetores},
+  DOSPrint in 'dosprint.pas',
+  recalculo in '..\recalculo\recalculo.pas' {formRecalculo},
+  laudo in '..\regdiario\laudo.pas' {formLaudo},
+  reg_files in '..\regdiario\reg_files.pas' {formReg_files};
+
+{$R *.RES}
+
+//  CODIGO MODIFICADO MANUALMENTE
+//  Application.Initialize;
+//  Application.Title := 'Sistema Empresa1';
+//  Application.CreateForm(TdmoPrincipal, dmoPrincipal);
+//  if dmoPrincipal.Database.Connected then
+//   begin
+//    Application.CreateForm(TformPrincipal, formPrincipal);
+//    Application.CreateForm(TdataVenda, dataVenda);
+//    Application.Run;
+//   end else dmoPrincipal.Free;
+
+begin
+  Application.Initialize;
+  Application.Title := 'NIKKEI';
+  Application.CreateForm(TdmoPrincipal, dmoPrincipal);
+  if dmoPrincipal.Database.Connected then
+   begin
+    Application.CreateForm(TformPrincipal, formPrincipal);
+    Application.Run;
+   end else dmoPrincipal.Free;
+end.
+
